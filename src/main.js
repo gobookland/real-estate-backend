@@ -11,13 +11,8 @@ import { resolvers, typeDefs } from './graphql';
 
 const app = new Koa();
 const PORT = process.env.PORT || 4000;
-const corsOption = {
-	origin: 'https://weasy.netlify.com/',
-	credentials: true,
-};
 
 app.use(KoaBody());
-app.use(cors(corsOption));
 
 // Database connection
 const db = mongoose.connection;
@@ -40,7 +35,10 @@ const server = new ApolloServer({
 		return { ctx };
 	},
 });
-server.applyMiddleware({ app });
+server.applyMiddleware({
+	app,
+	cors: { credentials: true, origin: 'https://weasy.netlify.com/' },
+});
 
 app.listen(PORT, () => {
 	console.log(`🚀  Server ready at localhost:${PORT}`);
