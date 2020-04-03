@@ -2,6 +2,7 @@ require('dotenv').config();
 
 import Koa from 'koa';
 import KoaBody from 'koa-bodyparser';
+import cors from 'cors';
 
 import { ApolloServer } from 'apollo-server-koa';
 import mongoose from 'mongoose';
@@ -10,8 +11,13 @@ import { resolvers, typeDefs } from './graphql';
 
 const app = new Koa();
 const PORT = process.env.PORT || 4000;
+const corsOption = {
+	origin: 'https://weasy.netlify.com/',
+	credentials: true,
+};
 
 app.use(KoaBody());
+app.use(cors(corsOption));
 
 // Database connection
 const db = mongoose.connection;
@@ -28,7 +34,7 @@ const server = new ApolloServer({
 	resolvers,
 	context: ({ ctx }) => {
 		const token = ctx.cookies.get('access_token');
-		// console.log(token);
+		console.log(token);
 
 		// TODO: send a token as a part of context to check if requset was authenticated.
 		return { ctx };
