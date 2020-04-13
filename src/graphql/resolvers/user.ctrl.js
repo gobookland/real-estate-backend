@@ -24,6 +24,7 @@ export const login = async (_, { userInput }, { ctx }) => {
 			httpOnly: true,
 			maxAge: 1000 * 60 * 60 * 24 * 7,
 			secure: true,
+			sameSite: 'none',
 		});
 
 		return {
@@ -50,6 +51,7 @@ export const check = async (_, __, { token }) => {
 					httpOnly: true,
 					maxAge: 1000 * 60 * 60 * 24 * 7,
 					secure: true,
+					sameSite: 'none',
 				});
 			}
 
@@ -104,6 +106,7 @@ export const register = async (_, { userInput }, { ctx }) => {
 			httpOnly: true,
 			maxAge: 1000 * 60 * 60 * 24 * 7,
 			secure: true,
+			sameSite: 'none',
 		});
 
 		return { id: newUser._id, username: newUser.username };
