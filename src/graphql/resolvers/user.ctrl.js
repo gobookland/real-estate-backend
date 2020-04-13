@@ -23,7 +23,6 @@ export const login = async (_, { userInput }, { ctx }) => {
 		ctx.cookies.set('access_token', token, {
 			httpOnly: true,
 			maxAge: 1000 * 60 * 60 * 24 * 7,
-			overwrite: true,
 			secure: true,
 			sameSite: false,
 		});
@@ -51,7 +50,6 @@ export const check = async (_, __, { token }) => {
 				ctx.cookies.set('access_token', token, {
 					httpOnly: true,
 					maxAge: 1000 * 60 * 60 * 24 * 7,
-					overwrite: true,
 					secure: true,
 					sameSite: false,
 				});
@@ -81,6 +79,13 @@ export const register = async (_, { userInput }, { ctx }) => {
 			);
 		}
 
+		// Count Check
+		const cnt = await User.find({});
+
+		if (cnt.length >= 2) {
+			return new ApolloError('Not Available', 'max_user');
+		}
+
 		// Conflict Check
 		const exist = await User.findByUsername(username);
 		if (exist) {
@@ -100,7 +105,6 @@ export const register = async (_, { userInput }, { ctx }) => {
 		ctx.cookies.set('access_token', token, {
 			httpOnly: true,
 			maxAge: 1000 * 60 * 60 * 24 * 7,
-			overwrite: true,
 			secure: true,
 			sameSite: false,
 		});
