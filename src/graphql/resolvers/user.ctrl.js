@@ -48,6 +48,9 @@ export const check = async (_, __, { token }) => {
 				ctx.cookies.set('access_token', token, {
 					httpOnly: true,
 					maxAge: 1000 * 60 * 60 * 24 * 7,
+					overwrite: true,
+					secure: true,
+					sameSite: false,
 				});
 			}
 
@@ -94,6 +97,9 @@ export const register = async (_, { userInput }, { ctx }) => {
 		ctx.cookies.set('access_token', token, {
 			httpOnly: true,
 			maxAge: 1000 * 60 * 60 * 24 * 7,
+			overwrite: true,
+			secure: true,
+			sameSite: false,
 		});
 
 		return { id: newUser._id, username: newUser.username };
