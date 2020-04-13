@@ -22,7 +22,8 @@ const typeDefs = gql`
 		sectors(type: String): [Sector] # do not need a query to get one sector
 		# Query about authentication
 		login(userInput: userInput!): Check
-		# check()
+		# check if user logged in
+		check: Check
 	}
 
 	type Mutation {

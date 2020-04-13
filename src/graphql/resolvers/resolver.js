@@ -14,6 +14,7 @@ const resolvers = {
 
 		// Query about user
 		login: userCtrl.login,
+		check: userCtrl.check,
 	},
 	Mutation: {
 		// Mutation about building

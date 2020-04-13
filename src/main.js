@@ -22,22 +22,19 @@ mongoose.connect(process.env.MONGO_URI, {
 	useFindAndModify: false,
 });
 db.on('connected', () => console.log('Database connected'));
-db.on('error', err => console.log(err));
+db.on('error', (err) => console.log(err));
 
 const server = new ApolloServer({
 	typeDefs,
 	resolvers,
 	context: ({ ctx }) => {
 		const token = ctx.cookies.get('access_token');
-		console.log(token);
-
-		// TODO: send a token as a part of context to check if requset was authenticated.
-		return { ctx };
+		return { ctx, token };
 	},
 });
 server.applyMiddleware({
 	app,
-	cors: { credentials: true, origin: 'https://weasy.netlify.com/' },
+	cors: { credentials: true, origin: 'https://weasy.netlify.com' }, // TODO: change to https://weasy.netlify.com
 });
 
 app.listen(PORT, () => {

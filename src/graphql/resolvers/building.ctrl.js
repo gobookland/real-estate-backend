@@ -7,22 +7,24 @@ export const buildings = async (
 	{ creationDate = -1, dealType, field, fieldOrder },
 ) => {
 	try {
-		let buildings;
-		if (!dealType) {
-			if (field === 'rights') {
-				buildings = await Building.find({}).sort({
-					[`dealInfo.${field}`]: fieldOrder,
-				});
-			} else {
-				buildings = await Building.find({}).sort({ creationDate });
-			}
-		} else {
-			buildings = await Building.find({
-				[`dealInfo.${dealType}.price`]: { $ne: null },
-			}).sort({
-				[`dealInfo.${dealType}.${field}`]: fieldOrder,
-			});
-		}
+		const buildings = await Building.find({});
+		// console.log('?');
+		// let buildings;
+		// if (!dealType) {
+		// 	if (field === 'rights') {
+		// 		buildings = await Building.find({}).sort({
+		// 			[`dealInfo.${field}`]: fieldOrder,
+		// 		});
+		// 	} else {
+		// 		buildings = await Building.find({}).sort({ creationDate });
+		// 	}
+		// } else {
+		// 	buildings = await Building.find({
+		// 		[`dealInfo.${dealType}.price`]: { $ne: null },
+		// 	}).sort({
+		// 		[`dealInfo.${dealType}.${field}`]: fieldOrder,
+		// 	});
+		// }
 
 		return buildings;
 	} catch (e) {
