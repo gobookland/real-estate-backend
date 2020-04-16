@@ -8,6 +8,7 @@ export const SectorSchema = new Schema({
 		enum: ['basic', 'detail'],
 		default: 'basic',
 	},
+	parent: String,
 	name: String,
 });
 

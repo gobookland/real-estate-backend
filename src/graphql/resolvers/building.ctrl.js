@@ -2,29 +2,9 @@ import Building from '../../models/Building';
 
 // * Query
 // List all buildings with filter :creationDate and dealType
-export const buildings = async (
-	_,
-	{ creationDate = -1, dealType, field, fieldOrder },
-) => {
+export const buildings = async () => {
 	try {
 		const buildings = await Building.find({});
-		// console.log('?');
-		// let buildings;
-		// if (!dealType) {
-		// 	if (field === 'rights') {
-		// 		buildings = await Building.find({}).sort({
-		// 			[`dealInfo.${field}`]: fieldOrder,
-		// 		});
-		// 	} else {
-		// 		buildings = await Building.find({}).sort({ creationDate });
-		// 	}
-		// } else {
-		// 	buildings = await Building.find({
-		// 		[`dealInfo.${dealType}.price`]: { $ne: null },
-		// 	}).sort({
-		// 		[`dealInfo.${dealType}.${field}`]: fieldOrder,
-		// 	});
-		// }
 
 		return buildings;
 	} catch (e) {
@@ -78,11 +58,15 @@ export const modifyBuilding = async (_, { id, buildingInput }) => {
 };
 
 // delete building information with id
-export const deleteBuilding = async (_, { id }) => {
+export const deleteBuilding = async (_, { ids }) => {
 	try {
-		const deletedBuilding = await Building.findOneAndRemove({ _id: id });
+		let deleted = [];
+		await ids.map(async (id) => {
+			const deletedBuilding = await Building.findOneAndRemove({ _id: id });
+			deleted.push(deleteBuilding);
+		});
 
-		return deletedBuilding;
+		return deleted;
 	} catch (e) {
 		console.log(e);
 	}

@@ -26,16 +26,6 @@ const building = gql`
 		monthly: Int
 	}
 
-	type Location {
-		image: String!
-		name: String!
-	}
-
-	input locationInput {
-		image: String!
-		name: String!
-	}
-
 	type BuildingSector {
 		basic: String
 		detail: String
@@ -64,7 +54,8 @@ const building = gql`
 
 		saleArea: Int!
 		realArea: Int!
-		sectors: sectorInput
+		sector: String
+		sectorDetail: String
 
 		location: locationInput
 	}
@@ -81,14 +72,14 @@ const building = gql`
 		rights: Int
 	}
 
-	type PartyInfo {
+	type OfficialsInfo {
 		owner: String!
 		ownerPhone: String!
 		lessee: String!
 		lesseePhone: String!
 	}
 
-	input partyInfoInput {
+	input officialsInfoInput {
 		owner: String!
 		ownerPhone: String!
 		lessee: String!
@@ -100,13 +91,13 @@ const building = gql`
 		creationDate: String!
 		buildingInfo: BuildingInfo
 		dealInfo: DealInfo
-		partyInfo: PartyInfo
+		officialsInfo: OfficialsInfo
 	}
 
 	input buildingInput {
 		buildingInfo: buildingInfoInput!
 		dealInfo: dealsInfoInput!
-		partyInfo: partyInfoInput!
+		officialsInfo: officialsInfoInput!
 	}
 `;
 

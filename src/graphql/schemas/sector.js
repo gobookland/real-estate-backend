@@ -9,11 +9,7 @@ const sector = gql`
 	type Sector {
 		type: SECTORTYPE
 		name: String
-	}
-
-	input sectorInput {
-		basic: String
-		detail: String
+		parent: String
 	}
 `;
 

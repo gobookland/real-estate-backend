@@ -1,6 +1,7 @@
 require('dotenv').config();
 
 import Koa from 'koa';
+import serve from 'koa-static';
 import KoaBody from 'koa-bodyparser';
 import cors from 'cors';
 
@@ -14,6 +15,8 @@ const PORT = process.env.PORT || 4000;
 
 app.use(KoaBody());
 app.proxy = true;
+
+app.use(serve('.'));
 
 // Database connection
 const db = mongoose.connection;

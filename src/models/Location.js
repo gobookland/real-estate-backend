@@ -5,7 +5,7 @@ const { Schema, model } = mongoose;
 export const LocationSchema = new Schema({
 	image: {
 		type: String,
-		default: 'no-Img.png',
+		default: 'No-Image.jpg',
 	},
 	name: String,
 });

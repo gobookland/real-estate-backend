@@ -1,6 +1,8 @@
 import * as buildingCtrl from './building.ctrl';
 import * as sectorCtrl from './sector.ctrl';
 import * as userCtrl from './user.ctrl';
+import * as fileCtrl from './file.ctrl';
+import * as locationCtrl from './location.ctrl';
 
 // Graphql Resolver
 const resolvers = {
@@ -15,6 +17,9 @@ const resolvers = {
 		// Query about user
 		login: userCtrl.login,
 		check: userCtrl.check,
+
+		// Query about location
+		locations: locationCtrl.locations,
 	},
 	Mutation: {
 		// Mutation about building
@@ -28,6 +33,12 @@ const resolvers = {
 
 		// Mutation about user
 		register: userCtrl.register,
+
+		// Single File Upload
+		singleFileUpload: fileCtrl.singleFileUpload,
+
+		// Add Location
+		addLocation: locationCtrl.addLocation,
 	},
 };
 
