@@ -86,12 +86,18 @@ const building = gql`
 		lesseePhone: String!
 	}
 
+	type History {
+		dealInfo: DealInfo
+		updateDate: String!
+	}
+
 	type Building {
 		id: ID!
 		creationDate: String!
 		buildingInfo: BuildingInfo
 		dealInfo: DealInfo
 		officialsInfo: OfficialsInfo
+		history: [History]
 	}
 
 	input buildingInput {

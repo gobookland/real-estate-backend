@@ -30,6 +30,14 @@ export const addBuilding = async (_, { buildingInput }) => {
 	try {
 		const building = new Building({
 			...buildingInput,
+			buildingInfo: {
+				...buildingInput.buildingInfo,
+				sectors: {
+					basic: buildingInput.buildingInfo.sector,
+					detail: buildingInput.buildingInfo.sectorDetail,
+				},
+			},
+			history: [{ dealInfo: buildingInput.dealInfo, updateDate: Date.now() }],
 		});
 
 		await building.save();
@@ -43,10 +51,54 @@ export const addBuilding = async (_, { buildingInput }) => {
 // modify building information with id
 export const modifyBuilding = async (_, { id, buildingInput }) => {
 	try {
+		const exBuilding = await Building.findById(id);
+
+		// const lastHistory = exBuilding.history[exBuilding.history.length - 1]
+		// const lastHistoryDateObj = new Date(parseInt(lastHistory.updateDate))
+		// const lastHistoryDate = `${lastHistoryDateObj.getFullYear()}-${lastHistoryDateObj.getMonth() + 1}-${lastHistoryDateObj.getDate()}`
+
+		// const currDateObj = new Date(Date.now())
+		// const currDate = `${currDateObj.getFullYear()}-${currDateObj.getMonth() + 1}-${currDateObj.getDate()}`
+
+		// let updateData;
+
+		// if(lastHistoryDate === currDate){
+		// 	let newHistory = [...exBuilding.history]
+		// 	newHistory[newHistory.length - 1] = {
+		// 		...newHistory[newHistory.length - 1],
+
+		// 	}
+
+		// 	updateData = {
+		// 		...buildingInput,
+		// 		buildingInfo: {
+		// 			...buildingInput.buildingInfo,
+		// 			sectors: {
+		// 				basic: buildingInput.buildingInfo.sector,
+		// 				detail: buildingInput.buildingInfo.sectorDetail,
+		// 			},
+		// 		},
+		// 		history: [
+		// 			...exBuilding.history,
+		// 			{ dealInfo: buildingInput.dealInfo, updateDate: Date.now() },
+		// 		],
+		// 	}
+		// }
 		const building = await Building.findOneAndUpdate(
 			{ _id: id },
 			{
 				...buildingInput,
+				buildingInfo: {
+					...buildingInput.buildingInfo,
+					sectors: {
+						basic: buildingInput.buildingInfo.sector,
+						detail: buildingInput.buildingInfo.sectorDetail,
+					},
+				},
+				history: [
+					...exBuilding.history,
+					{ dealInfo: buildingInput.dealInfo, updateDate: Date.now() },
+				],
 			},
 			{ new: true },
 		);

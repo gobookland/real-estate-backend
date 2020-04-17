@@ -40,15 +40,36 @@ const BuildingSchema = new Schema({
 		},
 		rights: Number,
 	},
-	partyInfo: {
+	officialsInfo: {
 		owner: String,
 		ownerPhone: String,
 		lessee: String,
 		lesseePhone: String,
 	},
+	history: [
+		{
+			updateDate: {
+				type: Date,
+			},
+			dealInfo: {
+				trade: {
+					price: Number,
+					deposit: Number,
+					monthly: Number,
+					totalPrice: Number,
+				},
+				lease: {
+					price: Number,
+					deposit: Number,
+					monthly: Number,
+				},
+				rights: Number,
+			},
+		},
+	],
 });
 
-BuildingSchema.pre('save', function(next) {
+BuildingSchema.pre('save', function (next) {
 	const { trade } = this.dealInfo;
 	if (trade) {
 		trade.totalPrice = trade.price * this.buildingInfo.saleArea;

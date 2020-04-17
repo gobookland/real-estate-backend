@@ -38,6 +38,7 @@ const server = new ApolloServer({
 });
 server.applyMiddleware({
 	app,
+	// cors: { credentials: true, origin: 'https://localhost:3000' }, // TODO: change to https://weasy.netlify.com
 	cors: { credentials: true, origin: 'https://weasy.netlify.app' }, // TODO: change to https://weasy.netlify.com
 });
 
