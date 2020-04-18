@@ -98,6 +98,7 @@ const building = gql`
 		dealInfo: DealInfo
 		officialsInfo: OfficialsInfo
 		history: [History]
+		traffic: [Traffic]
 	}
 
 	input buildingInput {

@@ -4,6 +4,7 @@ import sectorTypeDefs from './sector';
 import userTypeDefs from './user';
 import fileTypeDefs from './file';
 import locationTypeDefs from './location';
+import trafficTypeDefs from './traffic';
 
 const typeDefs = gql`
 	${sectorTypeDefs}
@@ -11,6 +12,7 @@ const typeDefs = gql`
 	${userTypeDefs}
 	${fileTypeDefs}
 	${locationTypeDefs}
+	${trafficTypeDefs}
 
 	type Query {
 		# Query about building
@@ -28,6 +30,9 @@ const typeDefs = gql`
 
 		# List Location Informations
 		locations: [Location]
+
+		# List Traffic with buildingId
+		traffics(buildingId: ID): [Traffic]
 	}
 
 	type Mutation {
@@ -49,6 +54,9 @@ const typeDefs = gql`
 
 		# Add Location Information
 		addLocation(locationInput: locationInput): Location
+
+		# Add traffic data with buildingId
+		addTraffic(buildingId: ID!, percentage: Int!): Traffic
 	}
 `;
 

@@ -3,6 +3,7 @@ import * as sectorCtrl from './sector.ctrl';
 import * as userCtrl from './user.ctrl';
 import * as fileCtrl from './file.ctrl';
 import * as locationCtrl from './location.ctrl';
+import * as trafficCtrl from './traffic.ctrl';
 
 // Graphql Resolver
 const resolvers = {
@@ -20,6 +21,9 @@ const resolvers = {
 
 		// Query about location
 		locations: locationCtrl.locations,
+
+		// Query about traffics
+		traffics: trafficCtrl.traffics,
 	},
 	Mutation: {
 		// Mutation about building
@@ -39,6 +43,9 @@ const resolvers = {
 
 		// Add Location
 		addLocation: locationCtrl.addLocation,
+
+		// Add Traffic
+		addTraffic: trafficCtrl.addTraffic,
 	},
 };
 
