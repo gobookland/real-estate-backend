@@ -12,12 +12,12 @@ export const addTraffic = async (_, { buildingId, percentage }) => {
 	const building = await Building.findById(buildingId);
 
 	const date = new Date(Date.now());
-	const updatedDate = `${date.getFullYear()}-${
+	const updateDate = `${date.getFullYear()}-${
 		date.getMonth() + 1
 	}-${date.getDate()}`;
 
 	const newTraffic = {
-		updatedDate,
+		updateDate: new Date(updateDate),
 		percentage,
 	};
 
