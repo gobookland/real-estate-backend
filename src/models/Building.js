@@ -77,12 +77,15 @@ const BuildingSchema = new Schema({
 	],
 });
 
-BuildingSchema.pre('save', function (next) {
-	const { trade } = this.dealInfo;
+BuildingSchema.pre('save', async function () {
+	const { trade, lease } = this.dealInfo;
+	const { saleArea } = this.buildingInfo;
 	if (trade) {
-		trade.totalPrice = trade.price * this.buildingInfo.saleArea;
+		trade.totalPrice = trade.price * saleArea;
 	}
-	next();
+	if (lease) {
+		lease.price = lease.monthly / saleArea;
+	}
 });
 
 export default model('building', BuildingSchema);
