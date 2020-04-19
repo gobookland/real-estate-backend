@@ -43,6 +43,7 @@ const resolvers = {
 
 		// Add Location
 		addLocation: locationCtrl.addLocation,
+		deleteLocation: locationCtrl.deleteLocation,
 
 		// Add Traffic
 		addTraffic: trafficCtrl.addTraffic,
