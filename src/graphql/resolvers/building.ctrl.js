@@ -28,6 +28,10 @@ export const building = async (_, { id }) => {
 // add building information
 export const addBuilding = async (_, { buildingInput }) => {
 	try {
+		const leasePrice = parseInt(
+			parseInt(buildingInput.dealInfo.lease.monthly) /
+				parseInt(buildingInput.buildingInfo.saleArea),
+		);
 		const building = new Building({
 			...buildingInput,
 			buildingInfo: {
@@ -37,8 +41,20 @@ export const addBuilding = async (_, { buildingInput }) => {
 					detail: buildingInput.buildingInfo.sectorDetail,
 				},
 			},
-			history: [{ dealInfo: buildingInput.dealInfo, updateDate: Date.now() }],
+			history: [
+				{
+					dealInfo: {
+						...buildingInput.dealInfo,
+						lease: {
+							...buildingInput.dealInfo.lease,
+							price: leasePrice,
+						},
+					},
+					updateDate: Date.now(),
+				},
+			],
 		});
+		console.log(building);
 
 		await building.save();
 
@@ -51,6 +67,10 @@ export const addBuilding = async (_, { buildingInput }) => {
 // modify building information with id
 export const modifyBuilding = async (_, { id, buildingInput }) => {
 	try {
+		const leasePrice = parseInt(
+			parseInt(buildingInput.dealInfo.lease.monthly) /
+				parseInt(buildingInput.buildingInfo.saleArea),
+		);
 		const exBuilding = await Building.findById(id);
 
 		const building = await Building.findOneAndUpdate(
@@ -74,14 +94,21 @@ export const modifyBuilding = async (_, { id, buildingInput }) => {
 					},
 					lease: {
 						...buildingInput.dealInfo.lease,
-						price:
-							parseInt(buildingInput.dealInfo.lease.monthly) /
-							parseInt(buildingInput.buildingInfo.saleArea),
+						price: leasePrice,
 					},
 				},
 				history: [
 					...exBuilding.history,
-					{ dealInfo: buildingInput.dealInfo, updateDate: Date.now() },
+					{
+						dealInfo: {
+							...buildingInput.dealInfo,
+							lease: {
+								...buildingInput.dealInfo.lease,
+								price: leasePrice,
+							},
+						},
+						updateDate: Date.now(),
+					},
 				],
 			},
 			{ new: true },

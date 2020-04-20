@@ -84,7 +84,7 @@ BuildingSchema.pre('save', async function () {
 		trade.totalPrice = trade.price * saleArea;
 	}
 	if (lease) {
-		lease.price = lease.monthly / saleArea;
+		lease.price = parseInt(lease.monthly / saleArea);
 	}
 });
 
